@@ -1,0 +1,27 @@
+{
+  "name": "express-astro-mongo-react-app",
+  "version": "1.0.0",
+  "description": "An Express app with Astro, MongoDB, and React",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build:astro": "cd frontend && astro build"
+  },
+  "keywords": [
+    "express",
+    "astro",
+    "mongodb",
+    "react"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongodb": "^6.0.0"
+  },
+  "devDependencies": {
+    "astro": "^4.0.0"
+  }
+}
