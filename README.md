@@ -1,3 +1,90 @@
+# Deep Research Agent
+
+This project implements a "Deep Research Agent" with a Python FastAPI backend and a Next.js (React) frontend. It uses the OpenAI API for research capabilities (though it can run in a simulated mode if no API key is provided).
+
+## Project Structure
+
+-   `/backend`: Contains the FastAPI application.
+    -   `main.py`: The main FastAPI application code.
+    -   `Dockerfile`: For containerizing the backend.
+    -   `requirements.txt`: Python dependencies.
+    -   `tests/`: Backend tests.
+-   `/frontend-next`: Contains the Next.js application.
+    -   `src/app/page.tsx`: The main page component.
+    -   `Dockerfile`: For containerizing the frontend.
+    -   `package.json`: Node.js dependencies.
+    -   `jest.config.mjs`, `jest.setup.js`: Jest test configurations.
+-   `docker-compose.yml`: For running both services together.
+
+## Prerequisites for Dockerized Setup
+
+-   Docker
+-   Docker Compose
+
+## Running with Docker Compose (Recommended)
+
+This is the easiest way to get both the backend and frontend services running together.
+
+1.  **Clone the repository (if you haven't already).**
+
+2.  **Environment Variables (Optional but Recommended):**
+    If you have an OpenAI API key, create a `.env` file in the project root:
+    ```env
+    # .env (in project root)
+    OPENAI_API_KEY="your_actual_openai_api_key"
+    ```
+    The `docker-compose.yml` file is set up to read this variable and pass it to the backend service. If not provided, the backend will use simulated OpenAI responses.
+
+3.  **Build and start the services:**
+    Navigate to the project root directory (where `docker-compose.yml` is located) and run:
+    ```bash
+    docker-compose up --build
+    ```
+    -   `--build` ensures the images are built the first time or if Dockerfiles have changed.
+    -   To run in detached mode, add `-d`: `docker-compose up --build -d`.
+
+4.  **Access the application:**
+    -   Frontend: `http://localhost:3000`
+    -   Backend API: `http://localhost:8000` (e.g., `http://localhost:8000/docs` for API documentation)
+
+## Stopping the Services
+
+-   If running in the foreground (without `-d`), press `Ctrl+C`.
+-   If running in detached mode, use:
+    ```bash
+    docker-compose down
+    ```
+
+## Development
+
+See the README files in the `/backend` and `/frontend-next` directories for instructions on running each service independently for development.
+
+The Docker Compose setup includes volume mounts, so changes to your local code should reflect in the running containers for easier development (may require a restart of the specific service or a page refresh).
+
+## Testing
+
+-   **Backend Tests:**
+    ```bash
+    cd backend
+    # Ensure virtual env is active and dev dependencies installed
+    pytest
+    ```
+    Or via Docker:
+    ```bash
+    docker-compose exec backend pytest
+    ```
+
+-   **Frontend Tests:**
+    ```bash
+    cd frontend-next
+    npm test
+    ```
+    Or via Docker:
+    ```bash
+    docker-compose exec frontend npm test
+    ```
+
+---
 # Express App with Astro, MongoDB, and React
 
 ## Overview

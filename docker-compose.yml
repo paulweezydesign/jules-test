@@ -1,0 +1,44 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app # Mounts the backend code for live reload during development
+                       # For production, you might remove this or have a different compose file
+    environment:
+      # Pass the OpenAI API key if you have one.
+      # The backend code has a placeholder if this is not set.
+      - OPENAI_API_KEY=${OPENAI_API_KEY} 
+    # command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload # Optional: if CMD in Dockerfile is not sufficient
+
+  frontend:
+    build: ./frontend-next
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-next:/app # Mounts code for live reload
+      - /app/node_modules # Don't mount host node_modules
+      - /app/.next # Don't mount host .next
+    depends_on:
+      - backend
+    environment:
+      # The Next.js app needs to know where the backend is.
+      # In the frontend code, we've hardcoded http://localhost:8000.
+      # For Docker networking, the frontend can reach the backend service using its service name 'backend'.
+      # So, the API URL inside the container should be http://backend:8000.
+      # This requires the frontend code to use an environment variable for the API URL.
+      # We'll address this in a subsequent step if needed, for now, localhost will work when both run via docker compose
+      # because ports are mapped to host.
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/research 
+      # For development with live reload, ensure this is set if you face issues
+      - WATCHPACK_POLLING=true
+
+
+volumes:
+  backend_app:
+  frontend_app_node_modules: # Persist node_modules
+  frontend_app_next: # Persist .next build cache
