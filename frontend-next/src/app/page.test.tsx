@@ -41,7 +41,7 @@ describe('ResearchPage', () => {
     const buttonElement = screen.getByRole('button', { name: /Research/i });
     // The button's disabled state depends on the query and isPending.
     // Initially query is empty, so button should be disabled.
-    expect(buttonElement).toBeDisabled(); 
+    expect(buttonElement).toBeDisabled();
 
     const inputElement = screen.getByPlaceholderText(/Enter your research topic.../i);
     fireEvent.change(inputElement, { target: { value: 'test' } });

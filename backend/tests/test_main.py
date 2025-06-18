@@ -46,7 +46,7 @@ def test_conduct_research_missing_query_field():
     client = TestClient(app)
     response = client.post("/research", json={}) # Missing 'query' field
     # This should result in a 422 Unprocessable Entity from Pydantic validation
-    assert response.status_code == 422 
+    assert response.status_code == 422
     # The detail would be more complex, so just checking status code is fine for this basic test
     # Example of what it might contain:
     # {'detail': [{'loc': ['body', 'query'], 'msg': 'field required', 'type': 'value_error.missing'}]}

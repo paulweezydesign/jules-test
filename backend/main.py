@@ -44,7 +44,7 @@ async def conduct_research(request: ResearchRequest):
             # more complex logic: breaking down the query, searching multiple sources,
             # synthesizing information, etc.
             # For now, we'll use a simple completion as a placeholder for the "deep research".
-            
+
             # Example: Using chat completions (adapt as needed for your research task)
             # You might want to construct a more detailed prompt for the AI.
             prompt = f"Conduct a deep research on the following topic: {request.query}."
@@ -64,9 +64,9 @@ async def conduct_research(request: ResearchRequest):
                 ],
                 model="gpt-3.5-turbo", # Or your preferred model
             )
-            
+
             summary = chat_completion.choices[0].message.content.strip() if chat_completion.choices else "No summary generated."
-            
+
             return ResearchResponse(
                 query=request.query,
                 summary=summary,
@@ -81,7 +81,7 @@ async def conduct_research(request: ResearchRequest):
         print("OpenAI client not initialized. Returning a simulated response.")
         simulated_summary = f"Simulated research summary for query: '{request.query}'. "
         simulated_summary += "OpenAI API key not configured."
-        
+
         return ResearchResponse(
             query=request.query,
             summary=simulated_summary,

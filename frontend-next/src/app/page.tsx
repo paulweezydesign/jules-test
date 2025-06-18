@@ -51,7 +51,7 @@ export default function ResearchPage() {
         <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
           Deep Research Agent
         </h1>
-        
+
         <div className="space-y-4">
           <input
             type="text"
